@@ -6,28 +6,6 @@
 <title>Desert Fish — Strategy + Creative Advisory</title>
 <meta name="description" content="Desertfish is a strategy and creative advisory led by a duo of strategic and creative minds inspired by nature's order, chaos, intelligence and aesthetics.">
 <style>
-  /*
-    FONT FILES:
-    Update these paths to match wherever your font files actually are.
-    Based on your repo, you have folders: Fonts/, Bauziet/, NaNSpaceland-Regular/
-    Check inside each for the actual .woff2, .woff, .otf, or .ttf files
-    and update the filenames below.
-  */
-  @font-face {
-    font-family: 'Nan Spaceland';
-    src: url('NaNSpaceland-Regular/NaNSpaceland-Regular.woff2') format('woff2'),
-         url('NaNSpaceland-Regular/NaNSpaceland-Regular.woff') format('woff'),
-         url('NaNSpaceland-Regular/NaNSpaceland-Regular.otf') format('opentype'),
-         url('NaNSpaceland-Regular/NaNSpaceland-Regular.ttf') format('truetype'),
-         url('Fonts/NaNSpaceland-Regular.woff2') format('woff2'),
-         url('Fonts/NaNSpaceland-Regular.woff') format('woff'),
-         url('Fonts/NaNSpaceland-Regular.otf') format('opentype'),
-         url('Fonts/NaNSpaceland-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-
   @font-face {
     font-family: 'Bauziet';
     src: url('Bauziet/Bauziet-Medium.woff2') format('woff2'),
@@ -50,7 +28,6 @@
     --navy: #1A1464;
     --black: #0A0A0A;
     --white: #FFFFFF;
-    --display: 'Nan Spaceland', 'Helvetica Neue', Helvetica, sans-serif;
     --body: 'Bauziet', 'Helvetica Neue', Helvetica, sans-serif;
   }
 
@@ -72,7 +49,7 @@
 
   /* ================================================================
      PERSISTENT BOTTOM BAR
-     Full-width DESERTFISH logo pinned to bottom of viewport.
+     Fades in/out based on whether it overlaps content.
      ================================================================ */
   .bottom-bar {
     position: fixed;
@@ -80,6 +57,13 @@
     left: 0;
     right: 0;
     z-index: 200;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .bottom-bar.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .bottom-bar-label {
@@ -118,31 +102,25 @@
     line-height: 0;
   }
 
-  /* Logo stretches full viewport width, edge to edge */
   .bottom-bar-logo img {
     width: 100%;
     height: auto;
     display: none;
   }
 
-  /* Only show the active logo */
-  .bottom-bar-logo img.active {
-    display: block;
-  }
-
-  /* ---- THEME: HERO — sand text, white logo, translucent ---- */
+  /* ---- THEME: HERO ---- */
   .bottom-bar[data-theme="hero"] .bar-left { color: var(--sand); }
   .bottom-bar[data-theme="hero"] .bar-right a { color: var(--sand); }
   .bottom-bar[data-theme="hero"] .logo-white { display: block; opacity: 0.55; }
   .bottom-bar[data-theme="hero"] .logo-black { display: none; }
 
-  /* ---- THEME: ETHOS — black text, black logo ---- */
+  /* ---- THEME: ETHOS ---- */
   .bottom-bar[data-theme="ethos"] .bar-left { color: var(--black); }
   .bottom-bar[data-theme="ethos"] .bar-right a { color: var(--black); }
   .bottom-bar[data-theme="ethos"] .logo-white { display: none; }
   .bottom-bar[data-theme="ethos"] .logo-black { display: block; opacity: 1; filter: none; }
 
-  /* ---- THEME: CONTACT — navy text, navy logo ---- */
+  /* ---- THEME: CONTACT ---- */
   .bottom-bar[data-theme="contact"] .bar-left { color: var(--navy); }
   .bottom-bar[data-theme="contact"] .bar-right a { color: var(--navy); }
   .bottom-bar[data-theme="contact"] .logo-white { display: none; }
@@ -152,7 +130,6 @@
     filter: brightness(0) saturate(100%) invert(9%) sepia(80%) saturate(4800%) hue-rotate(245deg) brightness(70%) contrast(115%);
   }
 
-  /* Smooth transitions */
   .bottom-bar .bar-left,
   .bottom-bar .bar-right a {
     transition: color 0.6s ease;
@@ -186,7 +163,6 @@
     display: block;
   }
 
-  /* Gradient for legibility over the bottom bar */
   .hero-video::after {
     content: '';
     position: absolute;
@@ -206,7 +182,6 @@
     color: var(--black);
     min-height: 100vh;
     padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 3rem);
-    /* Bottom padding to clear fixed bar: ~19.5vw logo + 2rem label + 4rem breathing */
     padding-bottom: calc(19.5vw + 6rem);
   }
 
@@ -230,10 +205,10 @@
   }
 
   .ethos-heading {
-    font-family: var(--display);
+    font-family: var(--body);
     font-size: clamp(1.6rem, 3.2vw, 2.8rem);
-    font-weight: 400;
-    line-height: 1.18;
+    font-weight: 500;
+    line-height: 1.22;
     color: var(--black);
     margin-bottom: 2rem;
   }
@@ -261,17 +236,17 @@
   }
 
   .contact-heading {
-    font-family: var(--display);
+    font-family: var(--body);
     font-size: clamp(2.2rem, 5vw, 4.5rem);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.1;
     color: var(--navy);
   }
 
   .contact-email {
-    font-family: var(--display);
+    font-family: var(--body);
     font-size: clamp(2.2rem, 5vw, 4.5rem);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.1;
     color: var(--navy);
     text-decoration: none;
@@ -346,13 +321,16 @@
 
 <!-- ======== SECTION: ETHOS ======== -->
 <section class="section-ethos" data-section="ethos">
-  <div class="ethos-label reveal">Ethos</div>
+  <!-- Invisible marker: when this is on screen, content is in the way -->
+  <div class="content-zone">
+    <div class="ethos-label reveal">Ethos</div>
 
-  <div class="ethos-content">
-    <div class="ethos-spacer"></div>
-    <div>
-      <h2 class="ethos-heading reveal">Desertfish is led by a duo of strategic + creative minds inspired by nature's order, chaos, intelligence and aesthetics.</h2>
-      <p class="ethos-body reveal">We seek to converge patterns and trends in culture to drive ideas and possibilities for our partners. Our work has been used throughout the public, private, and non-profit sectors to help organizations quickly implement solutions to the hardest issues they face.</p>
+    <div class="ethos-content">
+      <div class="ethos-spacer"></div>
+      <div>
+        <h2 class="ethos-heading reveal">Desertfish is led by a duo of strategic + creative minds inspired by nature's order, chaos, intelligence and aesthetics.</h2>
+        <p class="ethos-body reveal">We seek to converge patterns and trends in culture to drive ideas and possibilities for our partners. Our work has been used throughout the public, private, and non-profit sectors to help organizations quickly implement solutions to the hardest issues they face.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -360,10 +338,12 @@
 
 <!-- ======== SECTION: CONTACT ======== -->
 <section class="section-contact" data-section="contact">
-  <h2 class="contact-heading reveal">Work with us</h2>
-  <a href="mailto:info@desert-fish.com" class="contact-email reveal">info@desert-fish.com</a>
-  <div class="contact-rule reveal"></div>
-  <p class="contact-copy reveal">&copy;Desertfish Inc</p>
+  <div class="content-zone">
+    <h2 class="contact-heading reveal">Work with us</h2>
+    <a href="mailto:info@desert-fish.com" class="contact-email reveal">info@desert-fish.com</a>
+    <div class="contact-rule reveal"></div>
+    <p class="contact-copy reveal">&copy;Desertfish Inc</p>
+  </div>
 </section>
 
 
@@ -395,14 +375,16 @@
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
-  // --- Bottom bar theme switching ---
+  // --- Bottom bar: theme switching + hide when overlapping content ---
   const bar = document.getElementById('bottom-bar');
   const sections = document.querySelectorAll('[data-section]');
+  const contentZones = document.querySelectorAll('.content-zone');
 
-  function updateBarTheme() {
+  function updateBar() {
     const vh = window.innerHeight;
     let activeSection = 'hero';
 
+    // Determine which section "owns" the bar
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
       if (rect.top < vh * 0.75 && rect.bottom > vh * 0.25) {
@@ -413,11 +395,35 @@
     if (bar.dataset.theme !== activeSection) {
       bar.dataset.theme = activeSection;
     }
+
+    // Check if any content-zone overlaps the bar area
+    const barTop = bar.getBoundingClientRect().top;
+    let overlapping = false;
+
+    contentZones.forEach(zone => {
+      const rect = zone.getBoundingClientRect();
+      // Content overlaps the bar if its bottom extends into the bar region
+      // Add some buffer (40px) so it hides a bit early
+      if (rect.bottom > barTop + 40 && rect.top < vh) {
+        overlapping = true;
+      }
+    });
+
+    // On hero section, always show the bar (no content to overlap)
+    if (activeSection === 'hero') {
+      overlapping = false;
+    }
+
+    if (overlapping) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
   }
 
-  window.addEventListener('scroll', updateBarTheme, { passive: true });
-  window.addEventListener('resize', updateBarTheme, { passive: true });
-  updateBarTheme();
+  window.addEventListener('scroll', updateBar, { passive: true });
+  window.addEventListener('resize', updateBar, { passive: true });
+  updateBar();
 
 
   // --- Video autoplay fallback ---
