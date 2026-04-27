@@ -6,10 +6,23 @@
 <title>Desert Fish — Strategy + Creative Advisory</title>
 <meta name="description" content="Desertfish is a strategy and creative advisory led by a duo of strategic and creative minds inspired by nature's order, chaos, intelligence and aesthetics.">
 <style>
+  /*
+    FONT FILES:
+    Update these paths to match wherever your font files actually are.
+    Based on your repo, you have folders: Fonts/, Bauziet/, NaNSpaceland-Regular/
+    Check inside each for the actual .woff2, .woff, .otf, or .ttf files
+    and update the filenames below.
+  */
   @font-face {
     font-family: 'Nan Spaceland';
-    src: url('fonts/NanSpaceland-Regular.woff2') format('woff2'),
-         url('fonts/NanSpaceland-Regular.woff') format('woff');
+    src: url('NaNSpaceland-Regular/NaNSpaceland-Regular.woff2') format('woff2'),
+         url('NaNSpaceland-Regular/NaNSpaceland-Regular.woff') format('woff'),
+         url('NaNSpaceland-Regular/NaNSpaceland-Regular.otf') format('opentype'),
+         url('NaNSpaceland-Regular/NaNSpaceland-Regular.ttf') format('truetype'),
+         url('Fonts/NaNSpaceland-Regular.woff2') format('woff2'),
+         url('Fonts/NaNSpaceland-Regular.woff') format('woff'),
+         url('Fonts/NaNSpaceland-Regular.otf') format('opentype'),
+         url('Fonts/NaNSpaceland-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -17,8 +30,14 @@
 
   @font-face {
     font-family: 'Bauziet';
-    src: url('fonts/Bauziet-Medium.woff2') format('woff2'),
-         url('fonts/Bauziet-Medium.woff') format('woff');
+    src: url('Bauziet/Bauziet-Medium.woff2') format('woff2'),
+         url('Bauziet/Bauziet-Medium.woff') format('woff'),
+         url('Bauziet/Bauziet-Medium.otf') format('opentype'),
+         url('Bauziet/Bauziet-Medium.ttf') format('truetype'),
+         url('Fonts/Bauziet-Medium.woff2') format('woff2'),
+         url('Fonts/Bauziet-Medium.woff') format('woff'),
+         url('Fonts/Bauziet-Medium.otf') format('opentype'),
+         url('Fonts/Bauziet-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -53,6 +72,7 @@
 
   /* ================================================================
      PERSISTENT BOTTOM BAR
+     Full-width DESERTFISH logo pinned to bottom of viewport.
      ================================================================ */
   .bottom-bar {
     position: fixed;
@@ -67,12 +87,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 clamp(1.5rem, 3vw, 3rem);
-    height: 2.5rem;
+    height: 2rem;
   }
 
   .bottom-bar-label .bar-left {
     font-family: var(--body);
-    font-size: clamp(0.55rem, 0.85vw, 0.78rem);
+    font-size: clamp(0.55rem, 0.8vw, 0.75rem);
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -80,7 +100,7 @@
 
   .bottom-bar-label .bar-right a {
     font-family: var(--body);
-    font-size: clamp(0.55rem, 0.85vw, 0.78rem);
+    font-size: clamp(0.55rem, 0.8vw, 0.75rem);
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -93,48 +113,52 @@
   }
 
   .bottom-bar-logo {
-    display: block;
+    position: relative;
     width: 100%;
-    overflow: hidden;
     line-height: 0;
-    padding: 0 clamp(0.5rem, 1vw, 1rem);
   }
 
-  /* Two logo images — JS toggles visibility */
+  /* Logo stretches full viewport width, edge to edge */
   .bottom-bar-logo img {
     width: 100%;
     height: auto;
+    display: none;
+  }
+
+  /* Only show the active logo */
+  .bottom-bar-logo img.active {
     display: block;
   }
 
-  .bottom-bar-logo .logo-white { display: block; }
-  .bottom-bar-logo .logo-black { display: none; }
-
-  /* Theme: hero — sand text, white logo, semi-transparent */
+  /* ---- THEME: HERO — sand text, white logo, translucent ---- */
   .bottom-bar[data-theme="hero"] .bar-left { color: var(--sand); }
   .bottom-bar[data-theme="hero"] .bar-right a { color: var(--sand); }
   .bottom-bar[data-theme="hero"] .logo-white { display: block; opacity: 0.55; }
   .bottom-bar[data-theme="hero"] .logo-black { display: none; }
 
-  /* Theme: ethos — black text, black logo */
+  /* ---- THEME: ETHOS — black text, black logo ---- */
   .bottom-bar[data-theme="ethos"] .bar-left { color: var(--black); }
   .bottom-bar[data-theme="ethos"] .bar-right a { color: var(--black); }
   .bottom-bar[data-theme="ethos"] .logo-white { display: none; }
-  .bottom-bar[data-theme="ethos"] .logo-black { display: block; }
+  .bottom-bar[data-theme="ethos"] .logo-black { display: block; opacity: 1; filter: none; }
 
-  /* Theme: contact — navy text, navy-tinted logo */
+  /* ---- THEME: CONTACT — navy text, navy logo ---- */
   .bottom-bar[data-theme="contact"] .bar-left { color: var(--navy); }
   .bottom-bar[data-theme="contact"] .bar-right a { color: var(--navy); }
   .bottom-bar[data-theme="contact"] .logo-white { display: none; }
-  .bottom-bar[data-theme="contact"] .logo-black { display: block; filter: brightness(0) saturate(100%) invert(9%) sepia(62%) saturate(5765%) hue-rotate(245deg) brightness(73%) contrast(110%); }
-
-  .bottom-bar .bar-left,
-  .bottom-bar .bar-right a {
-    transition: color 0.5s ease;
+  .bottom-bar[data-theme="contact"] .logo-black {
+    display: block;
+    opacity: 1;
+    filter: brightness(0) saturate(100%) invert(9%) sepia(80%) saturate(4800%) hue-rotate(245deg) brightness(70%) contrast(115%);
   }
 
+  /* Smooth transitions */
+  .bottom-bar .bar-left,
+  .bottom-bar .bar-right a {
+    transition: color 0.6s ease;
+  }
   .bottom-bar-logo img {
-    transition: opacity 0.5s ease, filter 0.5s ease;
+    transition: opacity 0.6s ease, filter 0.6s ease;
   }
 
 
@@ -162,13 +186,13 @@
     display: block;
   }
 
-  /* Gradient at bottom for legibility over the bar */
+  /* Gradient for legibility over the bottom bar */
   .hero-video::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 50%;
-    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4));
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 100%);
     pointer-events: none;
   }
 
@@ -182,8 +206,8 @@
     color: var(--black);
     min-height: 100vh;
     padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 3rem);
-    /* Bottom padding to clear the fixed bar */
-    padding-bottom: 28vw;
+    /* Bottom padding to clear fixed bar: ~19.5vw logo + 2rem label + 4rem breathing */
+    padding-bottom: calc(19.5vw + 6rem);
   }
 
   .ethos-label {
@@ -196,18 +220,18 @@
     padding-bottom: 0.75rem;
     border-bottom: 1.5px solid var(--black);
     display: inline-block;
-    margin-bottom: 4rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
   }
 
   .ethos-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 3rem 6rem;
   }
 
   .ethos-heading {
     font-family: var(--display);
-    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-size: clamp(1.6rem, 3.2vw, 2.8rem);
     font-weight: 400;
     line-height: 1.18;
     color: var(--black);
@@ -216,10 +240,10 @@
 
   .ethos-body {
     font-family: var(--body);
-    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    font-size: clamp(0.9rem, 1.25vw, 1.1rem);
     font-weight: 500;
     line-height: 1.7;
-    color: rgba(10,10,10,0.65);
+    color: rgba(10,10,10,0.6);
     max-width: 540px;
   }
 
@@ -233,21 +257,20 @@
     color: var(--navy);
     min-height: 100vh;
     padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 3rem);
-    padding-bottom: 28vw;
+    padding-bottom: calc(19.5vw + 6rem);
   }
 
   .contact-heading {
     font-family: var(--display);
-    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
     font-weight: 400;
     line-height: 1.1;
     color: var(--navy);
-    margin-bottom: 0.25rem;
   }
 
   .contact-email {
     font-family: var(--display);
-    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
     font-weight: 400;
     line-height: 1.1;
     color: var(--navy);
@@ -264,7 +287,7 @@
     width: 100%;
     height: 1px;
     background: var(--navy);
-    opacity: 0.3;
+    opacity: 0.25;
     margin: 2.5rem 0 1rem;
   }
 
@@ -275,7 +298,7 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--navy);
-    opacity: 0.5;
+    opacity: 0.45;
   }
 
 
@@ -284,7 +307,7 @@
      ================================================================ */
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(18px);
     transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -306,11 +329,6 @@
     .ethos-content .ethos-spacer {
       display: none;
     }
-
-    .section-ethos,
-    .section-contact {
-      padding-bottom: 35vw;
-    }
   }
 </style>
 </head>
@@ -320,7 +338,7 @@
 <section class="section-hero" data-section="hero">
   <div class="hero-video">
     <video autoplay muted loop playsinline preload="auto">
-      <source src="desertfish_ethos_mobula_v1__1080p_.mp4" type="video/mp4">
+      <source src="desertfish_ethos_mobula_v1 (1080p).mp4" type="video/mp4">
     </video>
   </div>
 </section>
@@ -356,8 +374,8 @@
     <span class="bar-right"><a href="mailto:info@desert-fish.com">↗ Contact Us</a></span>
   </div>
   <div class="bottom-bar-logo">
-    <img class="logo-white" src="Desertfish_Logo_No_Sub_White.png" alt="DESERTFISH">
-    <img class="logo-black" src="Desertfish_Logo_No_Sub_Black.png" alt="DESERTFISH">
+    <img class="logo-white" src="Desertfish Logo_No Sub_White.png" alt="DESERTFISH" loading="eager">
+    <img class="logo-black" src="Desertfish Logo_No Sub_Black.png" alt="DESERTFISH" loading="eager">
   </div>
 </div>
 
@@ -381,15 +399,13 @@
   const bar = document.getElementById('bottom-bar');
   const sections = document.querySelectorAll('[data-section]');
 
-  // Use a more reliable approach: check which section occupies the bottom of viewport
   function updateBarTheme() {
-    const viewportBottom = window.innerHeight;
+    const vh = window.innerHeight;
     let activeSection = 'hero';
 
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
-      // If the section's top is above the bottom 30% of viewport, it's "behind" the bar
-      if (rect.top < viewportBottom * 0.7 && rect.bottom > viewportBottom * 0.3) {
+      if (rect.top < vh * 0.75 && rect.bottom > vh * 0.25) {
         activeSection = section.dataset.section;
       }
     });
@@ -400,17 +416,27 @@
   }
 
   window.addEventListener('scroll', updateBarTheme, { passive: true });
+  window.addEventListener('resize', updateBarTheme, { passive: true });
   updateBarTheme();
 
 
-  // --- Ensure video plays (some browsers block autoplay) ---
+  // --- Video autoplay fallback ---
   const video = document.querySelector('.hero-video video');
   if (video) {
-    video.play().catch(() => {
-      // If autoplay blocked, try playing on first user interaction
-      document.addEventListener('click', () => video.play(), { once: true });
-      document.addEventListener('touchstart', () => video.play(), { once: true });
-    });
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const playOnInteraction = () => {
+          video.play();
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('scroll', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('touchstart', playOnInteraction);
+        document.addEventListener('scroll', playOnInteraction);
+      });
+    }
   }
 </script>
 
