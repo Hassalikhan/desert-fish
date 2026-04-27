@@ -6,10 +6,6 @@
 <title>Desert Fish — Strategy + Creative Advisory</title>
 <meta name="description" content="Desertfish is a strategy and creative advisory led by a duo of strategic and creative minds inspired by nature's order, chaos, intelligence and aesthetics.">
 <style>
-  /*
-    FONT FILES — place in a /fonts/ folder next to index.html.
-    Adjust filenames to match your actual files.
-  */
   @font-face {
     font-family: 'Nan Spaceland';
     src: url('fonts/NanSpaceland-Regular.woff2') format('woff2'),
@@ -37,11 +33,6 @@
     --white: #FFFFFF;
     --display: 'Nan Spaceland', 'Helvetica Neue', Helvetica, sans-serif;
     --body: 'Bauziet', 'Helvetica Neue', Helvetica, sans-serif;
-
-    /* Bottom bar height — the logotype is massive */
-    --bar-height: clamp(120px, 15vw, 200px);
-    --bar-label-height: 2.2rem;
-    --bar-total: calc(var(--bar-height) + var(--bar-label-height));
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,9 +50,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
+
   /* ================================================================
      PERSISTENT BOTTOM BAR
-     Fixed bar with DESERTFISH logotype spanning full width
      ================================================================ */
   .bottom-bar {
     position: fixed;
@@ -69,21 +60,19 @@
     left: 0;
     right: 0;
     z-index: 200;
-    pointer-events: none;
   }
 
   .bottom-bar-label {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     padding: 0 clamp(1.5rem, 3vw, 3rem);
-    height: var(--bar-label-height);
-    pointer-events: auto;
+    height: 2.5rem;
   }
 
   .bottom-bar-label .bar-left {
     font-family: var(--body);
-    font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+    font-size: clamp(0.55rem, 0.85vw, 0.78rem);
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -91,7 +80,7 @@
 
   .bottom-bar-label .bar-right a {
     font-family: var(--body);
-    font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+    font-size: clamp(0.55rem, 0.85vw, 0.78rem);
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -108,40 +97,49 @@
     width: 100%;
     overflow: hidden;
     line-height: 0;
-    pointer-events: auto;
+    padding: 0 clamp(0.5rem, 1vw, 1rem);
   }
 
+  /* Two logo images — JS toggles visibility */
   .bottom-bar-logo img {
     width: 100%;
-    height: var(--bar-height);
-    object-fit: contain;
-    object-position: bottom left;
+    height: auto;
     display: block;
   }
 
-  /*
-    Color themes for the bar — JS toggles a data attribute on
-    .bottom-bar based on which section is in view.
-  */
-  .bottom-bar[data-theme="hero"] .bar-left,
+  .bottom-bar-logo .logo-white { display: block; }
+  .bottom-bar-logo .logo-black { display: none; }
+
+  /* Theme: hero — sand text, white logo, semi-transparent */
+  .bottom-bar[data-theme="hero"] .bar-left { color: var(--sand); }
   .bottom-bar[data-theme="hero"] .bar-right a { color: var(--sand); }
-  .bottom-bar[data-theme="hero"] .bottom-bar-logo img { content: url('Desertfish_Logo_No_Sub_White.png'); opacity: 0.6; }
+  .bottom-bar[data-theme="hero"] .logo-white { display: block; opacity: 0.55; }
+  .bottom-bar[data-theme="hero"] .logo-black { display: none; }
 
-  .bottom-bar[data-theme="ethos"] .bar-left,
+  /* Theme: ethos — black text, black logo */
+  .bottom-bar[data-theme="ethos"] .bar-left { color: var(--black); }
   .bottom-bar[data-theme="ethos"] .bar-right a { color: var(--black); }
-  .bottom-bar[data-theme="ethos"] .bottom-bar-logo img { content: url('Desertfish_Logo_No_Sub_Black.png'); }
+  .bottom-bar[data-theme="ethos"] .logo-white { display: none; }
+  .bottom-bar[data-theme="ethos"] .logo-black { display: block; }
 
-  .bottom-bar[data-theme="contact"] .bar-left,
+  /* Theme: contact — navy text, navy-tinted logo */
+  .bottom-bar[data-theme="contact"] .bar-left { color: var(--navy); }
   .bottom-bar[data-theme="contact"] .bar-right a { color: var(--navy); }
-  .bottom-bar[data-theme="contact"] .bottom-bar-logo img { content: url('Desertfish_Logo_No_Sub_Black.png'); }
+  .bottom-bar[data-theme="contact"] .logo-white { display: none; }
+  .bottom-bar[data-theme="contact"] .logo-black { display: block; filter: brightness(0) saturate(100%) invert(9%) sepia(62%) saturate(5765%) hue-rotate(245deg) brightness(73%) contrast(110%); }
 
-  .bottom-bar * {
-    transition: color 0.5s ease, opacity 0.5s ease;
+  .bottom-bar .bar-left,
+  .bottom-bar .bar-right a {
+    transition: color 0.5s ease;
+  }
+
+  .bottom-bar-logo img {
+    transition: opacity 0.5s ease, filter 0.5s ease;
   }
 
 
   /* ================================================================
-     SECTION: HERO (full-bleed video)
+     SECTION: HERO
      ================================================================ */
   .section-hero {
     position: relative;
@@ -161,15 +159,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
-  /* Subtle gradient so the bottom bar text reads clearly */
+  /* Gradient at bottom for legibility over the bar */
   .hero-video::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 45%;
-    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.35));
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4));
     pointer-events: none;
   }
 
@@ -182,12 +181,9 @@
     background: var(--light-grey);
     color: var(--black);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 3rem);
-    /* Extra bottom padding to clear the fixed bar */
-    padding-bottom: calc(var(--bar-total) + 4rem);
+    /* Bottom padding to clear the fixed bar */
+    padding-bottom: 28vw;
   }
 
   .ethos-label {
@@ -209,10 +205,6 @@
     gap: 3rem 6rem;
   }
 
-  .ethos-content .ethos-spacer {
-    /* Left column empty on desktop */
-  }
-
   .ethos-heading {
     font-family: var(--display);
     font-size: clamp(1.8rem, 3.5vw, 3rem);
@@ -227,7 +219,7 @@
     font-size: clamp(0.95rem, 1.3vw, 1.15rem);
     font-weight: 500;
     line-height: 1.7;
-    color: rgba(10,10,10,0.7);
+    color: rgba(10,10,10,0.65);
     max-width: 540px;
   }
 
@@ -240,11 +232,8 @@
     background: var(--chartreuse);
     color: var(--navy);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 3rem);
-    padding-bottom: calc(var(--bar-total) + 4rem);
+    padding-bottom: 28vw;
   }
 
   .contact-heading {
@@ -263,6 +252,7 @@
     line-height: 1.1;
     color: var(--navy);
     text-decoration: none;
+    display: inline-block;
     transition: opacity 0.3s;
   }
 
@@ -309,10 +299,6 @@
      RESPONSIVE
      ================================================================ */
   @media (max-width: 768px) {
-    :root {
-      --bar-height: clamp(60px, 12vw, 100px);
-    }
-
     .ethos-content {
       grid-template-columns: 1fr;
     }
@@ -321,12 +307,9 @@
       display: none;
     }
 
-    .section-ethos {
-      padding-bottom: calc(var(--bar-total) + 2rem);
-    }
-
+    .section-ethos,
     .section-contact {
-      padding-bottom: calc(var(--bar-total) + 2rem);
+      padding-bottom: 35vw;
     }
   }
 </style>
@@ -336,7 +319,7 @@
 <!-- ======== SECTION: HERO ======== -->
 <section class="section-hero" data-section="hero">
   <div class="hero-video">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto">
       <source src="desertfish_ethos_mobula_v1__1080p_.mp4" type="video/mp4">
     </video>
   </div>
@@ -373,7 +356,8 @@
     <span class="bar-right"><a href="mailto:info@desert-fish.com">↗ Contact Us</a></span>
   </div>
   <div class="bottom-bar-logo">
-    <img src="Desertfish_Logo_No_Sub_White.png" alt="DESERTFISH">
+    <img class="logo-white" src="Desertfish_Logo_No_Sub_White.png" alt="DESERTFISH">
+    <img class="logo-black" src="Desertfish_Logo_No_Sub_Black.png" alt="DESERTFISH">
   </div>
 </div>
 
@@ -388,7 +372,7 @@
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.12 });
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
@@ -397,20 +381,37 @@
   const bar = document.getElementById('bottom-bar');
   const sections = document.querySelectorAll('[data-section]');
 
-  const themeObserver = new IntersectionObserver((entries) => {
-    // Find the section most visible in the bottom portion of the viewport
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        bar.setAttribute('data-theme', entry.target.dataset.section);
+  // Use a more reliable approach: check which section occupies the bottom of viewport
+  function updateBarTheme() {
+    const viewportBottom = window.innerHeight;
+    let activeSection = 'hero';
+
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      // If the section's top is above the bottom 30% of viewport, it's "behind" the bar
+      if (rect.top < viewportBottom * 0.7 && rect.bottom > viewportBottom * 0.3) {
+        activeSection = section.dataset.section;
       }
     });
-  }, {
-    // Trigger when a section enters the bottom 20% of the viewport
-    rootMargin: '-60% 0px -10% 0px',
-    threshold: 0
-  });
 
-  sections.forEach(s => themeObserver.observe(s));
+    if (bar.dataset.theme !== activeSection) {
+      bar.dataset.theme = activeSection;
+    }
+  }
+
+  window.addEventListener('scroll', updateBarTheme, { passive: true });
+  updateBarTheme();
+
+
+  // --- Ensure video plays (some browsers block autoplay) ---
+  const video = document.querySelector('.hero-video video');
+  if (video) {
+    video.play().catch(() => {
+      // If autoplay blocked, try playing on first user interaction
+      document.addEventListener('click', () => video.play(), { once: true });
+      document.addEventListener('touchstart', () => video.play(), { once: true });
+    });
+  }
 </script>
 
 </body>
