@@ -1,0 +1,67 @@
+Font Software License Agreement for Web Use
+
+
+This End-User License Agreement ("EULA") is a legal agreement between you, either as an individual or as a single entity, and Fontstore Ltd ("Fontstore"), the licensor of the webfont software ("Font Software") you have chosen to use. By downloading, installing, or using the Webfont software, you agree to be bound by the terms of this Agreement. If you do not agree to the terms of this Agreement, do not download, install, or use the Webfont software.
+
+
+Grant of License: 
+
+The Licensor grants you a non-exclusive, non-transferable license to use the Webfont on a single website, for a maximum of one (1) primary domain (and unlimited subdomains), but with combined estimated monthly traffic (in page-views) equal or less than what is permitted on the copy of the invoice, payment receipt or in your order email. If at any given point of time the traffic of such website goes beyond the allotted traffic, you must upgrade your license to support the revised traffic.
+
+
+Multiple Domains:
+
+If you wish to use the Webfont on multiple domains, you must acquire separate licenses. If you have a localized website for the same company, such as company.cn, company.us, company.fr, or company.in, these are considered separate domains and you will need to acquire additional licenses.
+
+
+Embedding:
+
+You may embed the Webfont into documents, such as PDFs, using the appropriate technology, such as the @font-face CSS rule.
+
+
+Restrictions: 
+
+You may not use the Webfont in any manner that constitutes an infringement of the Licensor's rights or that has not been authorized by the Licensor. You may not use the Webfont in any way that is illegal, fraudulent, or deceitful. You may not use the Webfont to create pornographic, libelous, or otherwise illegal material. You may not use the Webfont in any way that is discriminatory or offensive to any individual or group.
+
+
+Prohibited Use: 
+
+You’re strictly not allowed to embed the the webfont in a Web Based software or a product (Eg: a SaaS application) that provides its users or subscribers an ability to select the font from a dropdown menu and allows them to create graphic design or other creative artwork for digital, print or merchandising. If such a use is required, an appropriate Server License (for Saas Applications) must be purchased separately.
+
+
+Modifications:
+
+You may not modify, adapt, translate, reverse engineer, decompile, or disassemble the Webfont, except to the extent that such restriction is expressly prohibited by law.
+
+
+Prices &amp; Validity: 
+
+The price for a Web License is based on the estimated monthly traffic to your website in terms of pageviews. If you've acquire a license for a certain limit and the traffic of your website goes up, you will need to upgrade your license to cover the additional usage. A Web License is pay-once and valid for a lifetime given that the estimated monthly traffic (in page-views) remains within the allotted bandwidth.
+
+
+Termination: 
+
+This Agreement is effective until terminated. Your rights under this Agreement will terminate automatically without notice from the Licensor if you fail to comply with any term(s) of this Agreement.
+
+
+Disclaimer of Warranties: 
+
+The Webfont is provided "as is," without warranty of any kind, express or implied, including but not limited to any warranties of merchantability, fitness for a particular purpose, or non-infringement of third party rights. The Licensor does not warrant that the functions contained in the Webfont will meet your requirements or that the operation of the Webfont will be uninterrupted or error-free.
+
+Limitation of Liability:
+
+ In no event shall the Licensor be liable for any damages (including, without limitation, lost profits, business interruption, or lost information) arising out of your use of or inability to use the Webfont, even if the Licensor has been advised of the possibility of such damages.
+
+Jurisdiction:  
+
+You agree that this EULA and any dispute arising out of or related to this EULA shall be governed by and construed in accordance with the laws of the country in which Fontstore is headquartered, without giving effect to any choice of law or conflict of law provisions.
+
+
+Entire Agreement: 
+
+This section states that this agreement constitutes the entire agreement between the user and the Licensor and supersedes all prior agreements, whether written or oral, regarding the use of the Webfont.
+
+
+Acknowledgment: 
+
+This section states that by using the Webfont, the user acknowledges that they have read this agreement, understand it, and agree to be bound by its terms and conditions.
