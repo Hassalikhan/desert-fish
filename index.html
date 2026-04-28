@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desert Fish — Strategy + Creative Advisory</title>
-<meta name="description" content="Desertfish is an advisory practice inspired by the duality of the natural world, with an emphasis on deliberate solutions and creative consciousness.">
+<meta name="description" content="Desertfish is a strategy and creative advisory led by a duo of strategic and creative minds inspired by nature's order, chaos, intelligence and aesthetics.">
 <style>
   @font-face {
     font-family: 'Bauziet';
@@ -49,7 +49,6 @@
 
   /* ================================================================
      PERSISTENT BOTTOM BAR
-     Fades in/out based on whether it overlaps content.
      ================================================================ */
   .bottom-bar {
     position: fixed;
@@ -312,23 +311,24 @@
 <!-- ======== SECTION: HERO ======== -->
 <section class="section-hero" data-section="hero">
   <div class="hero-video">
-    <video autoplay muted loop playsinline preload="auto">
-      <source src="desertfish_ethos_mobula_v1 (1080p).mp4" type="video/mp4">
-    </video>
+    <!--
+      Video source is set by JavaScript below.
+      Desktop gets the full 1080p file, mobile gets the compressed version.
+    -->
+    <video id="hero-vid" autoplay muted loop playsinline preload="auto"></video>
   </div>
 </section>
 
 
 <!-- ======== SECTION: ETHOS ======== -->
 <section class="section-ethos" data-section="ethos">
-  <!-- Invisible marker: when this is on screen, content is in the way -->
   <div class="content-zone">
     <div class="ethos-label reveal">Ethos</div>
 
     <div class="ethos-content">
       <div class="ethos-spacer"></div>
       <div>
-        <h2 class="ethos-heading reveal">Desertfish is an advisory practice inspired by the duality of the natural world, with an emphasis on deliberate solutions and creative consciousness.</h2>
+        <h2 class="ethos-heading reveal">Desertfish is led by a duo of strategic + creative minds inspired by nature's order, chaos, intelligence and aesthetics.</h2>
         <p class="ethos-body reveal">We seek to converge patterns and trends in culture to drive ideas and possibilities for our partners. Our work has been used throughout the public, private, and non-profit sectors to help organizations quickly implement solutions to the hardest issues they face.</p>
       </div>
     </div>
@@ -362,6 +362,36 @@
 
 <!-- ======== SCRIPTS ======== -->
 <script>
+  // --- Responsive video source ---
+  // Mobile gets the small compressed file, desktop gets full 1080p
+  const heroVid = document.getElementById('hero-vid');
+  if (heroVid) {
+    const isMobile = window.innerWidth <= 768;
+    const src = isMobile
+      ? 'desertfish_mobile.mp4'
+      : 'desertfish_ethos_mobula_v1 (1080p).mp4';
+
+    heroVid.src = src;
+    heroVid.load();
+
+    // Ensure autoplay
+    const playPromise = heroVid.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const playOnInteraction = () => {
+          heroVid.play();
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('scroll', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('touchstart', playOnInteraction);
+        document.addEventListener('scroll', playOnInteraction);
+      });
+    }
+  }
+
+
   // --- Scroll reveal ---
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -384,7 +414,6 @@
     const vh = window.innerHeight;
     let activeSection = 'hero';
 
-    // Determine which section "owns" the bar
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
       if (rect.top < vh * 0.75 && rect.bottom > vh * 0.25) {
@@ -396,20 +425,17 @@
       bar.dataset.theme = activeSection;
     }
 
-    // Check if any content-zone overlaps the bar area
+    // Hide bar when content overlaps it
     const barTop = bar.getBoundingClientRect().top;
     let overlapping = false;
 
     contentZones.forEach(zone => {
       const rect = zone.getBoundingClientRect();
-      // Content overlaps the bar if its bottom extends into the bar region
-      // Add some buffer (40px) so it hides a bit early
       if (rect.bottom > barTop + 40 && rect.top < vh) {
         overlapping = true;
       }
     });
 
-    // On hero section, always show the bar (no content to overlap)
     if (activeSection === 'hero') {
       overlapping = false;
     }
@@ -424,26 +450,6 @@
   window.addEventListener('scroll', updateBar, { passive: true });
   window.addEventListener('resize', updateBar, { passive: true });
   updateBar();
-
-
-  // --- Video autoplay fallback ---
-  const video = document.querySelector('.hero-video video');
-  if (video) {
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        const playOnInteraction = () => {
-          video.play();
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('touchstart', playOnInteraction);
-          document.removeEventListener('scroll', playOnInteraction);
-        };
-        document.addEventListener('click', playOnInteraction);
-        document.addEventListener('touchstart', playOnInteraction);
-        document.addEventListener('scroll', playOnInteraction);
-      });
-    }
-  }
 </script>
 
 </body>
